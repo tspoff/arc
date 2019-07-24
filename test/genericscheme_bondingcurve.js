@@ -263,7 +263,7 @@ contract("genericScheme", function(accounts) {
     deployParams.owner = testSetup.org.avatar.address;
     deployParams.beneficiary = testSetup.org.avatar.address;
 
-    var callData = await encodeDeployCall(deployParams, factory);
+    var callData = await encodeDeployBancorCall(deployParams, factory);
 
     var tx = await testSetup.genericScheme.proposeCall(
       testSetup.org.avatar.address,
@@ -281,7 +281,7 @@ contract("genericScheme", function(accounts) {
     deployParams.owner = testSetup.org.avatar.address;
     deployParams.beneficiary = testSetup.org.avatar.address;
 
-    var callData = await encodeDeployCall(deployParams, factory);
+    var callData = await encodeDeployBancorCall(deployParams, factory);
 
     var tx = await testSetup.genericScheme.proposeCall(
       testSetup.org.avatar.address,
@@ -312,7 +312,7 @@ contract("genericScheme", function(accounts) {
     deployParams.owner = testSetup.org.avatar.address;
     deployParams.beneficiary = testSetup.org.avatar.address;
 
-    var callData = await encodeDeployCall(deployParams, factory);
+    var callData = await encodeDeployBancorCall(deployParams, factory);
 
     var tx = await testSetup.genericScheme.proposeCall(
       testSetup.org.avatar.address,
@@ -333,6 +333,7 @@ contract("genericScheme", function(accounts) {
       helpers.NULL_ADDRESS,
       { from: accounts[2] }
     );
+
     //check organizationsProposals after execution
     organizationProposal = await testSetup.genericScheme.organizationsProposals(
       testSetup.org.avatar.address,
@@ -341,38 +342,13 @@ contract("genericScheme", function(accounts) {
     assert.equal(organizationProposal.callData, null); //new contract address
   });
 
-  it("execute proposeVote without return value-positive decision - check action", async function() {
-    var testSetup = await setup(accounts, factory.address);
-
-    deployParams.owner = testSetup.org.avatar.address;
-    deployParams.beneficiary = testSetup.org.avatar.address;
-
-    var encodeABI = await encodeDeployCall(deployParams, factory);
-
-    var tx = await testSetup.genericScheme.proposeCall(
-      testSetup.org.avatar.address,
-      encodeABI,
-      0,
-      helpers.NULL_HASH
-    );
-    var proposalId = await helpers.getValueFromLogs(tx, "_proposalId");
-
-    await testSetup.genericSchemeParams.votingMachine.absoluteVote.vote(
-      proposalId,
-      1,
-      0,
-      helpers.NULL_ADDRESS,
-      { from: accounts[2] }
-    );
-  });
-
   it("execute should fail if not executed from votingMachine", async function() {
     var testSetup = await setup(accounts, factory.address);
 
     deployParams.owner = testSetup.org.avatar.address;
     deployParams.beneficiary = testSetup.org.avatar.address;
 
-    var encodeABI = await encodeDeployCall(deployParams, factory);
+    var encodeABI = await encodeDeployBancorCall(deployParams, factory);
 
     var tx = await testSetup.genericScheme.proposeCall(
       testSetup.org.avatar.address,
