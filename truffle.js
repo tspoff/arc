@@ -1,7 +1,7 @@
 require("babel-polyfill");
 require("babel-register")({
-  "presets": ["es2015"],
-  "plugins": ["syntax-async-functions","transform-regenerator"]
+  presets: ["es2015"],
+  plugins: ["syntax-async-functions", "transform-regenerator"]
 });
 
 module.exports = {
@@ -37,11 +37,11 @@ module.exports = {
       gas: 4543760
     },
     coverage: {
-      host: 'localhost',
-      network_id: '*', // eslint-disable-line camelcase
+      host: "localhost",
+      network_id: "*", // eslint-disable-line camelcase
       port: 8555,
       gas: 0xfffffffffff,
-      gasPrice: 0x01,
+      gasPrice: 0x01
     }
   },
   rpc: {
@@ -56,12 +56,12 @@ module.exports = {
   },
   compilers: {
     solc: {
-         version: "0.5.4",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.5.4", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       optimizer: {
         enabled: true,
         runs: 200
       }
-      }
+    }
   }
 };
